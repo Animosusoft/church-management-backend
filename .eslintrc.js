@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    esnext: true,
+    es6: false,
     node: true,
   },
   extends: [
@@ -19,4 +19,3 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   rules: {},
 };
-
