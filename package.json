@@ -1,0 +1,33 @@
+{
+  "name": "ICM-backend",
+  "version": "0.0.1",
+  "description": "The Node Backend For ICM",
+  "main": "index.js",
+  "repository": "git@github.com:theobeezy/integrated-church-management-system-back-end.git",
+  "author": "Ultra-Code <mega.alpha100@gmail.com>",
+  "license": "Closed Source",
+  "private": true,
+  "dependencies": {
+    "koa": "^2.12.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^8.0.8",
+    "koa2-cors": "^2.0.6",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.2",
+    "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.1",
+    "@types/koa2-cors": "^2.0.1",
+    "@types/node": "^14.0.1",
+    "@types/supertest": "^2.0.9",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "supertest": "^4.0.2",
+    "ts-node-dev": "^1.0.0-pre.44"
+  }
+}
