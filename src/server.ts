@@ -2,7 +2,7 @@ import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
 import logger from "koa-logger";
-import manage from "./routes/manage";
+import Home from "./routes/home";
 import { config } from "./config";
 
 const app = new Koa();
@@ -13,7 +13,7 @@ app.use(bodyParser());
 app.use(cors({ origin: "*" }));
 app.use(logger());
 
-app.use(manage.routes());
+app.use(Home.routes());
 
 const server = app
   .listen(PORT, async () => {
