@@ -31,11 +31,12 @@
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2",
+    "ts-jest": "^26.1.0",
     "ts-node-dev": "^1.0.0-pre.44"
   },
   "scripts": {
     "build": "tsc --build",
-    "test": "NODE_ENV=test PORT=9000 jest",
+    "test": "jest",
     "start": "ts-node-dev src/server.ts",
     "test:watch": "yarn test -- --watchAll"
   }
