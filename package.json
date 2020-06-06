@@ -38,6 +38,6 @@
     "build": "tsc --build",
     "test": "jest",
     "start": "ts-node-dev src/server.ts",
-    "test:watch": "yarn test -- --watchAll"
+    "watch": "yarn jest --watchAll"
   }
 }
