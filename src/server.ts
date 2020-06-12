@@ -3,8 +3,8 @@ import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
 import logger from "koa-logger";
 import * as Routes from "./routes/index"
-import { config } from "./config";
-import {name} from "./datastores/setup.mongo"
+import { config } from "./config/config";
+import {name} from "./models/setup.mongo"
 
 const app = new Koa();
 
