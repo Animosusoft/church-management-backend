@@ -36,12 +36,9 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "build": "tsc --build",
-    "test": "jest",
-    "start": "ts-node-dev src/server.ts",
-    "watch": "yarn jest --watchAll",
-    "tsc": "tsc",
+    "test": "yarn jest --watchAll",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
+    "start": "ts-node-dev src/server.ts",
     "prod": "tsc && node ./build/src/server"
   }
 }
