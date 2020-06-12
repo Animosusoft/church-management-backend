@@ -4,6 +4,7 @@ import cors from "koa2-cors";
 import logger from "koa-logger";
 import * as Routes from "./routes/index"
 import { config } from "./config";
+import {name} from "./datastores/setup.mongo"
 
 const app = new Koa();
 
@@ -21,5 +22,6 @@ const server = app
     console.log("Server is listening on port : ", PORT);
   })
   .on("error", (error) => console.error(error));
-server.close()
+  const Bernard = new name({name:"Bernard"});
+  console.log(Bernard);
 export default server;
