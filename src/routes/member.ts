@@ -6,42 +6,33 @@ const router = new Router();
 router.post("/member", async (ctx) => {
     const church_member_info: any = ctx.request.body;
     const member = new ChurchMember(church_member_info);
-    await member.save((errorInDbTransaction: Error) => {
-        if (errorInDbTransaction) {
-            console.error("There Is an error \n");
-            console.error(errorInDbTransaction);
-            ctx.status = 401;
-            ctx.body = {
-                errors: {
-                    message: "Some Validations In Schema failed",
-                },
-            };
-        } else {
+    await member
+        .save()
+        .then(() => {
             ctx.status = 201;
             ctx.body = {
                 message: "A church Member Has been created successfully",
             };
-        }
-    });
+        })
+        .catch((reason: Error) => {
+            console.error(reason);
+            ctx.status = 400;
+            ctx.body = {
+                message: " Some Validations of the Schema Failed",
+                error: reason.message,
+            };
+        });
 });
 
 router.get("/member", async (ctx) => {
-    try {
-        await ChurchMember.find((error: Error, members) => {
-            if (error) {
-                console.error(
-                    "The Following Error Occured While Try To Get Data: ",
-                    error,
-                );
-            } else {
-                console.log("We Can Get Our Data\n");
-                ctx.body = { members };
-            }
+    await ChurchMember.find()
+        .then((members) => {
+            console.log("Data is ready to be retrived ");
+            ctx.body = { members };
+        })
+        .catch((reason: Error) => {
+            console.error(reason);
         });
-    } catch (error) {
-        console.error("");
-        throw error;
-    }
 });
 
 export default router;
