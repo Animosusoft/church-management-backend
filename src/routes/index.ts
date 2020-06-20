@@ -1,5 +1,5 @@
 import Login from "./login"
 import Home from "./home"
+import Member from "./member"
 
-export {Login};
-export {Home};
+export {Login,Home,Member};
