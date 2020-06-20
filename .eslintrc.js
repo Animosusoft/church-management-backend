@@ -6,6 +6,8 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "prettier/@typescript-eslint",
+      "plugin:prettier/recommended"
   ],
   globals: {
     Atomics: "readonly",
@@ -17,5 +19,5 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
-  rules: {},
+    rules: {"prettier/prettier":"warn"},
 };
