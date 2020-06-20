@@ -1,4 +1,4 @@
-import {environment} from "./config"
+import {environment} from "./server.config"
 import {mongo_uri} from "./db.config"
 
 
