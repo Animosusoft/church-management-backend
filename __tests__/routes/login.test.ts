@@ -1,10 +1,6 @@
 import server from "../../src/server"
 import request from "supertest"
 
-afterEach(
-    (done)=>{server.close();
-          done();})
-
 describe("test route/login",()=>{
     it("logs a user into our system",async ()=>{
         const responds = await request(server).post("/login").send({response:"you have logged in"});
@@ -14,3 +10,8 @@ describe("test route/login",()=>{
         expect(responds.type).toEqual("application/json")
     })
 })
+afterEach(
+    ()=>{server.close();
+    }
+)
+

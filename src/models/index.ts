@@ -1,4 +1,3 @@
-import {ChurchMember} from "./member.schema"
+import { ChurchMember } from "./member.schema";
 
-export {ChurchMember}
-
+export { ChurchMember };

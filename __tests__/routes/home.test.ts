@@ -1,13 +1,6 @@
 import server from "../../src/server"
 import request from "supertest"
 
-afterEach(
-    (done)=>{
-    server.close();
-    done();
-    }
-)
-
 describe("route/home" ,()=>{
     it("it pings our home route",async ()=>{
         const responds = await request(server).get("/koa");
@@ -15,3 +8,9 @@ describe("route/home" ,()=>{
         expect(responds.type).toEqual("application/json")
     })
 })
+
+afterEach(
+    ()=>{
+    server.close();
+    }
+)
