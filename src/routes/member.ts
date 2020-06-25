@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import { ChurchMember } from "../models/index";
 
-const router = new Router();
+const router = new Router({ prefix: "/api/v1" });
 
 router.post("/member", async (ctx) => {
     const church_member_info: any = ctx.request.body;
@@ -32,7 +32,8 @@ router.get("/member", async (ctx) => {
     }
 });
 
-router.get("/member:membership_id", async (ctx) => {
+// Named Route member_id
+router.get("member_id", "/member:membership_id", async (ctx) => {
     try {
         const members_id = ctx.request.query;
         const member = await ChurchMember.findOne({ membership_id: members_id });
