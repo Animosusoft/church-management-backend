@@ -11,7 +11,6 @@ const MaritalStatus = [
     "Divorced",
     "Widowed",
 ];
-const StudentStatus = ["Yes", "No"];
 const EducationalLevel = [
     "None",
     "JHS/MSLC",
@@ -39,7 +38,7 @@ const basic_information = {
     last_name: String,
     membership_id: { type: Number, unique: true },
     date_of_birth: Date,
-    languages_spoken: [String],
+    languages_spoken: { type: [String] },
     gender: { type: String, enum: Gender },
 };
 
@@ -65,7 +64,7 @@ const family_information = {
 };
 
 const educational_and_occupational_infomation = {
-    student: StudentStatus,
+    student: Boolean,
     education_level: EducationalLevel,
     instituition: String,
     profession: String,
@@ -88,6 +87,10 @@ const church_infomation = {
 
 const add_church_member_schema = new mongoose.Schema({
     ...basic_information,
+    ...contact_information,
+    ...family_information,
+    ...educational_and_occupational_infomation,
+    ...church_infomation,
 });
 
 const ChurchMember = mongoose.model("ChurchMember", add_church_member_schema);
