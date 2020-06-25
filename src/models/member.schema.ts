@@ -32,7 +32,7 @@ const EmploymentStatus = [
     "Retired",
 ];
 
-const basic_information = {
+const basic_information = new mongoose.Schema({
     first_name: String,
     middle_name: String,
     last_name: String,
@@ -40,9 +40,9 @@ const basic_information = {
     date_of_birth: Date,
     languages_spoken: { type: [String] },
     gender: { type: String, enum: Gender },
-};
+});
 
-const contact_information = {
+const contact_information = new mongoose.Schema({
     residential_or_gps_address: String,
     hometown: String,
     postal_address: String,
@@ -51,29 +51,29 @@ const contact_information = {
     region: String,
     phone_number: Number,
     email: String,
-};
+});
 
-const family_information = {
-    marital_status: MaritalStatus,
+const family_information = new mongoose.Schema({
+    marital_status: { type: String, enum: MaritalStatus },
     date_of_marriage: Date,
     name_of_spouse: String,
     name_of_children: [String],
     fathers_name: String,
     mothers_name: String,
     next_of_kins: String,
-};
+});
 
-const educational_and_occupational_infomation = {
+const educational_and_occupational_infomation = new mongoose.Schema({
     student: Boolean,
-    education_level: EducationalLevel,
+    education_level: { type: String, enum: EducationalLevel },
     instituition: String,
     profession: String,
     occupation: String,
     current_place_of_work: String,
-    employment_status: EmploymentStatus,
-};
+    employment_status: { type: String, enum: EmploymentStatus },
+});
 
-const church_infomation = {
+const church_infomation = new mongoose.Schema({
     date_accepted_in_church: Date,
     role: String,
     authorized_by: String,
@@ -83,14 +83,14 @@ const church_infomation = {
     date_of_conformation: Date,
     place_of_conformation: String,
     previous_church_attended: String,
-};
+});
 
 const add_church_member_schema = new mongoose.Schema({
-    ...basic_information,
-    ...contact_information,
-    ...family_information,
-    ...educational_and_occupational_infomation,
-    ...church_infomation,
+    basic_information,
+    contact_information,
+    family_information,
+    educational_and_occupational_infomation,
+    church_infomation,
 });
 
 const ChurchMember = mongoose.model("ChurchMember", add_church_member_schema);
