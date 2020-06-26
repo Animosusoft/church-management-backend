@@ -93,6 +93,6 @@ const add_church_member_schema = new mongoose.Schema({
     church_infomation,
 });
 
-const ChurchMember = mongoose.model("ChurchMember", add_church_member_schema);
+const ChurchMember = mongoose.model("church.members", add_church_member_schema);
 
 export { ChurchMember };
