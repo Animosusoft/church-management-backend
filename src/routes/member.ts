@@ -93,4 +93,27 @@ router.get("/members/gender/females", async (ctx) => {
         ctx.throw(error);
     }
 });
+
+router.get("/members/:profession/professions", async (ctx) => {
+    try {
+        const profession_name = ctx.params.profession;
+        const professions = await ChurchMember.find({
+            "educational_and_occupational_infomation.profession": profession_name,
+        });
+        ctx.body = { professions };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
+router.get("/members/:occupation/occupations", async (ctx) => {
+    try {
+        const occupation_name = ctx.params.occupation;
+        const occupations = await ChurchMember.find({
+            "educational_and_occupational_infomation.occupation": occupation_name,
+        });
+        ctx.body = { occupations };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
 export default router;
