@@ -72,4 +72,25 @@ router.get("/members/:mothers_name/mother", async (ctx) => {
     }
 });
 
+router.get("/members/gender/males", async (ctx) => {
+    try {
+        const males = await ChurchMember.find({
+            "basic_information.gender": "Male",
+        });
+        ctx.body = { males };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
+
+router.get("/members/gender/females", async (ctx) => {
+    try {
+        const females = await ChurchMember.find({
+            "basic_information.gender": "Female",
+        });
+        ctx.body = { females };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
 export default router;
