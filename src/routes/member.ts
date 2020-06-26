@@ -13,20 +13,19 @@ router.post("/members", async (ctx) => {
             message: "A church Member Has been created successfully",
         };
     } catch (error) {
-        ctx.status = 400;
         ctx.body = {
             message: " Some Validations of the Schema Failed",
             error: error.message,
         };
-        ctx.throw(error);
+        ctx.throw(400, error);
     }
 });
 
 router.get("/members", async (ctx) => {
     try {
-        const All_Church_Members = await ChurchMember.find();
+        const all_church_members = await ChurchMember.find();
         console.log("Data is ready to be retrived ");
-        ctx.body = { All_Church_Members };
+        ctx.body = { all_church_members };
     } catch (error) {
         ctx.throw(error);
     }
