@@ -33,11 +33,14 @@ router.get("/member", async (ctx) => {
 });
 
 // Named Route member_id
-router.get("member_id", "/member:membership_id", async (ctx) => {
+router.get("member_id", "/member/:membership_id", async (ctx) => {
     try {
-        const members_id = ctx.request.query;
-        const member = await ChurchMember.findOne({ membership_id: members_id });
-        ctx.response.body = { member };
+        const members_id = ctx.params.membership_id;
+        console.log("Retrive member by id", members_id);
+        const members = await ChurchMember.find({
+            "basic_information.membership_id": members_id,
+        });
+        ctx.response.body = { members };
     } catch (error) {
         ctx.throw(error);
     }
