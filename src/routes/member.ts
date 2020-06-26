@@ -3,7 +3,7 @@ import { ChurchMember } from "../models/index";
 
 const router = new Router({ prefix: "/api/v1" });
 
-router.post("/member", async (ctx) => {
+router.post("/members", async (ctx) => {
     const church_member_info: any = ctx.request.body;
     const member = new ChurchMember(church_member_info);
     try {
@@ -22,7 +22,7 @@ router.post("/member", async (ctx) => {
     }
 });
 
-router.get("/member", async (ctx) => {
+router.get("/members", async (ctx) => {
     try {
         const All_Church_Members = await ChurchMember.find();
         console.log("Data is ready to be retrived ");
@@ -33,7 +33,7 @@ router.get("/member", async (ctx) => {
 });
 
 // Named Route member_id
-router.get("member_id", "/member/:membership_id", async (ctx) => {
+router.get("member_id", "/members/:membership_id", async (ctx) => {
     try {
         const members_id = ctx.params.membership_id;
         console.log("Retrive member by id", members_id);
@@ -41,6 +41,32 @@ router.get("member_id", "/member/:membership_id", async (ctx) => {
             "basic_information.membership_id": members_id,
         });
         ctx.response.body = { members };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
+
+router.get("/members/:fathers_name/father", async (ctx) => {
+    try {
+        const fathers_name = ctx.params.fathers_name;
+        console.log(ctx.params);
+        const members_father = await ChurchMember.find({
+            "family_information.fathers_name": fathers_name,
+        });
+        ctx.body = { members_father };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
+
+router.get("/members/:mothers_name/mother", async (ctx) => {
+    try {
+        const mothers_name = ctx.params.mothers_name;
+        console.log(ctx.params);
+        const members_mother = await ChurchMember.find({
+            "family_information.mothers_name": mothers_name,
+        });
+        ctx.body = { members_mother };
     } catch (error) {
         ctx.throw(error);
     }
