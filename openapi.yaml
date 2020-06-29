@@ -1,0 +1,425 @@
+openapi: 3.0.3
+swagger: 2.0
+info:
+    title: ICM BACKEND API DOCS
+    description: This is the documentation of the apis in ICM Backend to be used by frontend developers
+    termsOfService: http://example.com/terms/
+    contact:
+      name: Assan Danquah Bernard
+      url: http://www.example.com/support
+      email: bernardassan100@gamil.com
+    license:
+      name: GNU GPL 3.0
+      url: https://www.gnu.org/licenses/gpl-3.0.en.html
+    version: 1.0.0
+servers:
+   - url: http://{domain_name}:{port}/{basePath}
+     description: The primary icm backend server
+     variables:
+        domain_name:
+      # note! no enum here means it is an open value
+          default: localhost
+          description: this value is assigned by the service provider, in this example `gigantic-server.com`
+        port:
+          enum:
+            - '9000'
+            - '3000'
+          default: '9000'
+        basePath:
+        # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+          default: api/v1
+tags:
+- name: "members"
+  description: "Everything about the church members"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "visitors"
+  description: "All about the church visitors"
+- name: "Adiministrator"
+  description: "Operations about user"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+paths:
+    /members:
+      get:
+        tags:
+          - members
+        summary: Display all the church members info we have stored
+        description: Returns all members from the system that the user has access to
+        produces:
+          - application/json
+        parameters: []
+        responses:
+          '200':
+            description: Successfully retrieved the list of church members.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid status value
+      post:
+        tags:
+          - members
+        summary: Add a new member to the church membership
+        description: Add a new members to the system
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: Church member object that needs to be added to the db
+            required: true
+            schema:
+              $ref: '#/components/schemas/member'
+        responses:
+          '201':
+            description: Successfully added a new church members.
+          '405':
+            description: Invalid input
+    /members/{membership_id}:
+      get:
+        tags:
+          - members
+        summary: Find member by membership id
+        description: Returns the member who matches the membership_id in the url
+        operationId: get_member_by_id
+        produces:
+          - application/json
+        parameters:
+          - name: membership_id
+            in: path
+            description: The membership_id of the member to return
+            required: true
+            type: string
+            format: uuid
+        responses:
+          '200':
+            description: Successfully retrieved the member
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid membership_id supplied
+          '404':
+            description: church member not found
+
+    /members/{mothers_name}/mother:
+      get:
+        tags:
+          - members
+        summary: Find member by mothers_name
+        description: Returns the member who's mothers name matches that in the url
+        operationId: get_member_by_mothers_name
+        produces:
+          - application/json
+        parameters:
+          - name: mothers_name
+            in: path
+            description: The mothers_name of the member to return
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Successfully retrieved the member
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid mothers_name supplied
+          '404':
+            description: Mother member in church not found
+
+    /members/{fathers_name}/father:
+      get:
+        tags:
+          - members
+        summary: Find member by fathers_name
+        description: Returns the members who's fathers name matches that in the url
+        operationId: get_member_by_father_name
+        produces:
+          - application/json
+        parameters:
+          - name: fathers_name
+            in: path
+            description: The fathers_name of the member to return
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Successfully retrieved the member
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid fathers_name supplied
+          '404':
+            description: Father not found in the church
+
+    /members/gender/females:
+      get:
+        tags:
+          - members
+        summary: Find member by gender female
+        description: Returns all female members of the church
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successfully retrieved female members in the church
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid Request
+
+    /members/gender/males:
+      get:
+        tags:
+          - members
+        summary: Find member by gender male
+        description: Returns all male members of the church
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successfully retrieved male members in the church
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid Request
+
+    /members/{occupation}/occupations:
+      get:
+        tags:
+          - members
+        summary: Find all members who are involved with a paticular occupation
+        description: Returns members with the same occupation
+        produces:
+          - application/json
+        parameters:
+          - name : occupation
+            in: path
+            description: The name of the occupation to retrieve member by
+            type: string
+            required: true
+        responses:
+          '200':
+            description: Successfully retrieved members
+            content:
+              - application/json:
+                  schema:
+                    $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid Request
+          '404':
+            description: Occupation not found in the church db
+
+    /members/{profession}/professions:
+      get:
+        tags:
+          - members
+        summary: Find all members who are involved with a paticular profession
+        description: Returns members with the same profession
+        produces:
+          - application/json
+        parameters:
+          - name : profession
+            in: path
+            description: The name of the profession to retrieve member by
+            type: string
+            required: true
+        responses:
+          '200':
+            description: Successfully retrieved members
+            content:
+              - application/json:
+                  schema:
+                    $ref: '#/components/schemas/member'
+          '400':
+            description: Invalid Request
+          '404':
+            description: Profession not found in the church db
+
+components:
+  schemas:
+    GeneralError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    member:
+      type: object
+      properties:
+        basic_information:
+          type: object
+          required:
+            - first_name
+            - middle_name
+            - last_name
+            - date_of_birth
+            - membership_id
+            - gender
+          properties:
+            first_name:
+              type: string
+              example: Bernard
+            middle_name:
+              type : string
+              example: Danquah
+            last_name:
+              type: string
+              example: Assan
+            date_of_birth:
+              type: string
+              format: date
+              example: 2000-12-12
+            languages_spoken:
+              type: array
+              example:
+                - Spanish
+                - English
+            membership_id:
+              type: string
+              format: uuid
+            gender:
+              type: string
+              enum:
+                - Male
+                - Female
+              example: Male
+        contact_information:
+          type: object
+          properties:
+            residential_or_gps_address:
+              type: string
+            hometown:
+              type: string
+            postal_address:
+              type: string
+            place_of_birth:
+              type: string
+            nationality:
+              type: string
+            region:
+              type: string
+            number:
+              type : string
+            email:
+              type : string
+        family_information:
+          type: object
+          properties:
+           marital_status:
+             type: string
+           date_of_marriage:
+             type: string
+             format: date
+           name_of_spouse:
+             type: string
+           name_of_children:
+             type: string
+           mothers_name:
+             type: string
+           fathers_name:
+             type: string
+           next_of_kins:
+             type: string
+        educational_and_occupational_infomation:
+          type: object
+          properties:
+            student:
+              type: string
+            education_level:
+              type : string
+            instituition:
+              type: string
+            profession:
+              type: string
+            occupation:
+              type: string
+            current_place_of_work:
+              type: string
+            employment_status:
+              type: string
+        church_infomation:
+          type: object
+          properties:
+           date_accepted_in_church:
+            type: string
+            format: date
+           role:
+             type: string
+           authorized_by:
+             type: string
+           date_of_baptism:
+             type: string
+             format: date
+           place_of_baptism:
+             type: string
+           baptized_by:
+             type: string
+           date_of_conformation:
+             type: string
+             format: date
+           place_of_conformation:
+             type: string
+           previous_church_attended:
+             type: string
+  parameters:
+    skipParam:
+      name: skip
+      in: query
+      description: number of items to skip
+      required: true
+      schema:
+        type: integer
+        format: int32
+    limitParam:
+      name: limit
+      in: query
+      description: max records to return
+      required: true
+      schema:
+        type: integer
+        format: int32
+  responses:
+    NotFound:
+      description: Entity not found.
+    IllegalInput:
+      description: Illegal input for operation.
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
