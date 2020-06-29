@@ -5,10 +5,23 @@ import logger from "koa-logger";
 import * as Routes from "./routes/index";
 import { environment } from "./config/index";
 import compress from "koa-compress";
+import SwaggerUi from "koa2-swagger-ui";
+import yamljs from "yamljs";
 
 const app = new Koa();
-
 const PORT = environment.port;
+
+// .load loads file from root.
+const openApiSpec = yamljs.load("./openapi.yaml");
+
+app.use(
+    SwaggerUi({
+        routePrefix: "/api-docs", // host at /swagger instead of default /docs
+        swaggerOptions: {
+            openApiSpec,
+        },
+    }),
+);
 
 app.use(bodyParser())
     .use(cors({ origin: "*" }))
