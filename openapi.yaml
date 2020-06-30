@@ -12,6 +12,9 @@ info:
       url: https://www.gnu.org/licenses/gpl-3.0.en.html
     version: 1.0.0
 servers:
+  # Added by API Auto Mocking Plugin
+   - description: SwaggerHub API Auto Mocking
+     url: https://virtserver.swaggerhub.com/Animosusoft/ICM/1.0.0
    - url: http://{domain_name}:{port}/{basePath}
      description: The primary icm backend server
      variables:
