@@ -1,5 +1,4 @@
 openapi: 3.0.3
-swagger: 2.0
 info:
     title: ICM BACKEND API DOCS
     description: This is the documentation of the apis in ICM Backend to be used by frontend developers
@@ -48,8 +47,6 @@ paths:
           - members
         summary: Display all the church members info we have stored
         description: Returns all members from the system that the user has access to
-        produces:
-          - application/json
         parameters: []
         responses:
           '200':
@@ -65,12 +62,8 @@ paths:
           - members
         summary: Add a new member to the church membership
         description: Add a new members to the system
-        consumes:
-          - application/json
-        produces:
-          - application/json
         parameters:
-          - in: body
+          - in: query
             name: body
             description: Church member object that needs to be added to the db
             required: true
@@ -88,15 +81,13 @@ paths:
         summary: Find member by membership id
         description: Returns the member who matches the membership_id in the url
         operationId: get_member_by_id
-        produces:
-          - application/json
         parameters:
           - name: membership_id
             in: path
             description: The membership_id of the member to return
             required: true
-            type: string
-            format: uuid
+            schema:
+              type: string
         responses:
           '200':
             description: Successfully retrieved the member
@@ -116,14 +107,13 @@ paths:
         summary: Find member by mothers_name
         description: Returns the member who's mothers name matches that in the url
         operationId: get_member_by_mothers_name
-        produces:
-          - application/json
         parameters:
           - name: mothers_name
             in: path
             description: The mothers_name of the member to return
             required: true
-            type: string
+            schema:
+              type: string
         responses:
           '200':
             description: Successfully retrieved the member
@@ -132,7 +122,7 @@ paths:
                 schema:
                   $ref: '#/components/schemas/member'
           '400':
-            description: Invalid mothers_name supplied
+            description: Invalid others_name supplied
           '404':
             description: Mother member in church not found
 
@@ -143,14 +133,13 @@ paths:
         summary: Find member by fathers_name
         description: Returns the members who's fathers name matches that in the url
         operationId: get_member_by_father_name
-        produces:
-          - application/json
         parameters:
           - name: fathers_name
             in: path
             description: The fathers_name of the member to return
             required: true
-            type: string
+            schema:
+              type: string
         responses:
           '200':
             description: Successfully retrieved the member
@@ -169,8 +158,6 @@ paths:
           - members
         summary: Find member by gender female
         description: Returns all female members of the church
-        produces:
-          - application/json
         responses:
           '200':
             description: Successfully retrieved female members in the church
@@ -187,8 +174,6 @@ paths:
           - members
         summary: Find member by gender male
         description: Returns all male members of the church
-        produces:
-          - application/json
         responses:
           '200':
             description: Successfully retrieved male members in the church
@@ -205,21 +190,20 @@ paths:
           - members
         summary: Find all members who are involved with a paticular occupation
         description: Returns members with the same occupation
-        produces:
-          - application/json
         parameters:
           - name : occupation
             in: path
             description: The name of the occupation to retrieve member by
-            type: string
             required: true
+            schema:
+              type: string
         responses:
           '200':
             description: Successfully retrieved members
             content:
-              - application/json:
-                  schema:
-                    $ref: '#/components/schemas/member'
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
           '400':
             description: Invalid Request
           '404':
@@ -231,21 +215,20 @@ paths:
           - members
         summary: Find all members who are involved with a paticular profession
         description: Returns members with the same profession
-        produces:
-          - application/json
         parameters:
           - name : profession
             in: path
             description: The name of the profession to retrieve member by
-            type: string
             required: true
+            schema:
+              type: string
         responses:
           '200':
             description: Successfully retrieved members
             content:
-              - application/json:
-                  schema:
-                    $ref: '#/components/schemas/member'
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/member'
           '400':
             description: Invalid Request
           '404':
@@ -260,22 +243,6 @@ components:
           type: integer
           format: int32
         message:
-          type: string
-    Category:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-    Tag:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
           type: string
     member:
       type: object
@@ -305,6 +272,8 @@ components:
               example: 2000-12-12
             languages_spoken:
               type: array
+              items:
+                type: object
               example:
                 - Spanish
                 - English
