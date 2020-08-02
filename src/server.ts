@@ -32,6 +32,7 @@ app.use(Routes.Home.routes()).use(Routes.Home.allowedMethods());
 app.use(Routes.Login.routes()).use(Routes.Login.allowedMethods());
 app.use(Routes.Member.routes()).use(Routes.Member.allowedMethods());
 app.use(Routes.Visitor.routes()).use(Routes.Visitor.allowedMethods());
+app.use(Routes.Admin.routes()).use(Routes.Admin.allowedMethods());
 
 const server = app
     .listen(PORT, async () => {
