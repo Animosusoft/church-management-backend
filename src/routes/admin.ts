@@ -7,7 +7,7 @@ router.post("/admins", async (ctx) => {
     const admins_info = ctx.request.body;
     const admin = new Administrator(admins_info);
     try {
-        admin.save();
+        await admin.save();
         ctx.status = 201;
         ctx.body = {
             success: "True",
@@ -21,3 +21,5 @@ router.post("/admins", async (ctx) => {
         ctx.throw(401, error);
     }
 });
+
+export default router;
