@@ -22,4 +22,14 @@ router.post("/admins", async (ctx) => {
     }
 });
 
+router.get("/admins", async (ctx) => {
+    try {
+        const admins = Administrator.find();
+        console.log(admins);
+        ctx.body = { admins };
+    } catch (error) {
+        ctx.throw(error);
+    }
+});
+
 export default router;
