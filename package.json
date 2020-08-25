@@ -16,7 +16,8 @@
         "koa-router": "^8.0.8",
         "koa2-cors": "^2.0.6",
         "koa2-swagger-ui": "^3.0.1",
-        "mongoose": "^5.9.18"
+        "mongoose": "^5.9.18",
+        "yamljs": "^0.3.0"
     },
     "devDependencies": {
         "@types/jest": "^25.2.2",
@@ -40,14 +41,16 @@
         "supertest": "^4.0.2",
         "ts-jest": "^26.1.0",
         "ts-node-dev": "^1.0.0-pre.44",
-        "typescript": "^3.9.5",
-        "yamljs": "^0.3.0"
+        "typescript": "^3.9.5"
     },
     "scripts": {
         "test": "jest --watchAll",
-        "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-        "start": "ts-node-dev src/server.ts",
-        "prod": "tsc && node ./build/src/server",
+        "dev": "ts-node-dev src/server.ts",
+        "start": "tsc && node ./dist/src/server.js",
         "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix"
+    },
+    "engines": {
+        "node": "14.8.x",
+        "npm": "6.14.x"
     }
 }
