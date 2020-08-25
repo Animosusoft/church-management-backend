@@ -539,28 +539,30 @@ let codes = [
         spec_href: "http://documentup.com/joho/7XX-rfc",
     },
 ];
-export default async function error(ctx, next) {
-    await next();
-    if (ctx.body === undefined && ctx.status >= 400) {
-        let status = ctx.status;
-        let code = codes.filter((c) => c.code === ctx.status.toString())[0];
-        /* istanbul ignore else */
-        if (ctx.accepts("html") === "html") {
-            await ctx.render(
-                configuration.server.error.layout,
-                Object.assign(
-                    {
-                        short_description: code.phrase,
-                        error: code.code,
-                    },
-                    configuration.server.error.data,
-                ),
-            );
-            ctx.status = status;
-        } else if (ctx.accepts("json") === "json") {
-            ctx.body = {
-                error: code,
-            };
-        }
-    }
-}
+/*
+ *export default async function error(ctx:any, next:any) {
+ *    await next();
+ *    if (ctx.body === undefined && ctx.status >= 400) {
+ *        let status = ctx.status;
+ *        let code = codes.filter((c) => c.code === ctx.status.toString())[0];
+ *        [> istanbul ignore else <]
+ *        if (ctx.accepts("html") === "html") {
+ *            await ctx.render(
+ *                configuration.server.error.layout,
+ *                Object.assign(
+ *                    {
+ *                        short_description: code.phrase,
+ *                        error: code.code,
+ *                    },
+ *                    configuration.server.error.data,
+ *                ),
+ *            );
+ *            ctx.status = status;
+ *        } else if (ctx.accepts("json") === "json") {
+ *            ctx.body = {
+ *                error: code,
+ *            };
+ *        }
+ *    }
+ *}
+ */
