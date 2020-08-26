@@ -46,7 +46,8 @@
     "scripts": {
         "test": "jest --watchAll",
         "dev": "ts-node-dev src/server.ts",
-        "build": "tsc",
+        "build": "npx tsc",
+        "postinstall": "npm run build",
         "start": "node ./dist/src/server.js",
         "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix"
     },
