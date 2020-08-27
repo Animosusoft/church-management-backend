@@ -9,7 +9,8 @@ import SwaggerUi from "koa2-swagger-ui";
 import yamljs from "yamljs";
 
 const app = new Koa();
-const PORT = environment.port;
+const PORT = environment.port || Number(process.env.PORT);
+console.log(PORT);
 
 // .load loads file from root.
 const openApiSpec = yamljs.load("./openapi.yaml");
