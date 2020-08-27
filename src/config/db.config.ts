@@ -26,6 +26,8 @@ const default_auth_db = `${mongoConfig.db_name}`;
 const connection = {
     options: {
         authSource: `authSource=${mongoConfig.db_name}`,
+        retryWrites: "retryWrites=true",
+        w: "w=majority",
     },
 };
 
@@ -36,3 +38,6 @@ const connection = {
 //
 
 export const mongo_uri = `${mongodb_connection_protocol}://${mongo_auth_credentials}@${mongo_network}/${default_auth_db}?${connection.options.authSource}`;
+
+//Mongo clould atlas connection uri
+export const clould_mongo_uri = `${mongodb_connection_protocol}+srv://${mongo_auth_credentials}@${mongoConfig.db_host}/${default_auth_db}?${connection.options.retryWrites}&${connection.options.w}`;
